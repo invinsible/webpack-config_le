@@ -48,6 +48,17 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        cacheDirectory: true,
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            },
+            {
                 test: /\.less$/,
                 use: [
                     MiniCssExtractPlugin.loader,

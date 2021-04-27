@@ -5,6 +5,7 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
 console.log(devMode);
@@ -36,7 +37,8 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: filename('css')
         }), 
-        new Dotenv()
+        new Dotenv(),
+        new VueLoaderPlugin()
     ],
     devServer: {
         port: 8080       
@@ -48,6 +50,10 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
+                test: /\.vue$/,
+                loader: 'vue-loader',
+            },
+            {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
@@ -57,7 +63,7 @@ module.exports = {
                         presets: ['@babel/preset-env']
                     }
                 }
-            },
+            },            
             {
                 test: /\.less$/,
                 use: [

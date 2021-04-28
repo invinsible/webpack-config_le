@@ -9,5 +9,18 @@ new Vue({
     render: (h) => h(App),
 }).$mount('#app');
 
-showUserName('Igor');
+//showUserName('Igor');
 console.log(process.env.SOME_KEY);
+
+let urlPosts = `${process.env.FETCH_URL}/posts/1` 
+
+const prom = fetch(urlPosts)
+.then( response => {
+    if(response.ok) {        
+        return response.json()
+    } else {
+        alert(response.status)
+    }
+})
+
+
